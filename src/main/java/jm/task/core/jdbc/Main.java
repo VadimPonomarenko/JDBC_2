@@ -19,10 +19,6 @@ public class Main {
         userService.cleanUsersTable();
         userService.dropUsersTable();
 
-        try {
-            UserDaoJDBCImpl.closeConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Util.closeCon(UserDaoJDBCImpl.getConnection());
     }
 }

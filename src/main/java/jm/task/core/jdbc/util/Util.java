@@ -8,11 +8,23 @@ public class Util {
     private static final String URL = "jdbc:mysql://localhost:3306/mysql";
 
 
-    public static Connection getCon() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    public static Connection getCon() {
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return con;
     }
-    public static void closeCon(Connection con) throws SQLException {
-        con.close();
+    public static void closeCon(Connection con) {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private static Connection connection = null;
-    public static void closeConnection() throws SQLException {
-        Util.closeCon(connection);
+    private static final Connection connection = Util.getCon();
+    public static Connection getConnection() {
+        return connection;
     }
     private String createTableSQL = """
                     CREATE TABLE IF NOT EXISTS `user`.`users` (
@@ -21,11 +21,7 @@ public class UserDaoJDBCImpl implements UserDao {
                       PRIMARY KEY (`id`));""";
 
     public UserDaoJDBCImpl() {
-        try {
-            connection = Util.getCon();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public void createUsersTable() {
